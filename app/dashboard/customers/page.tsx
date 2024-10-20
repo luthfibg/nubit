@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Pagination from '@/app/ui/invoices/pagination';
+// import Pagination from '@/app/ui/invoices/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/customers/table';
 import { CreateContact } from '@/app/ui/customers/buttons';
@@ -12,17 +12,19 @@ export const metadata: Metadata = {
   title: 'Customers',
 };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
-  const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
-  const customers = await fetchCustomers(query, currentPage);
+export default async function Page(
+//   {
+//   searchParams,
+// }: {
+//   searchParams?: {
+//     query?: string;
+//     page?: string;
+//   };
+// }
+) {
+  // const query = searchParams?.query || '';
+  // const currentPage = Number(searchParams?.page) || 1;
+  const customers = await fetchCustomers();
 
   // const totalPages = await fetchCustomersPages(query);
 
@@ -35,8 +37,8 @@ export default async function Page({
         <Search placeholder="Search customers..." />
         <CreateContact />
       </div>
-       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <Table query={query} customers={customers} />
+       <Suspense fallback={<InvoicesTableSkeleton />}>
+        <Table customers={customers} />
       </Suspense>
       {/* <div className="mt-5 flex w-full justify-center">
         <Pagination totalPages={totalPages} />
