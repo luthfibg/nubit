@@ -1,22 +1,25 @@
 import Image from 'next/image';
 // import { lusitana } from '@/app/ui/fonts';
 // import Search from '@/app/ui/search';
-import {
-  // CustomersTableType,
-  FormattedCustomersTable,
-} from '@/app/lib/definitions';
+// import {
+//   CustomersTableType,
+//   FormattedCustomersTable,
+// } from '@/app/lib/definitions';
+import { fetchFilteredCustomers } from '@/app/lib/data';
 
 export default async function CustomersTable({
-  // query,
-  customers,
+  query,
+  currentPage,
 }: {
-  // query: string;
-  customers: FormattedCustomersTable[];
+  query: string;
+  currentPage: number;
 }) {
+  const customers = await fetchFilteredCustomers(query, currentPage);
+
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
-        <div className="overflow-hidden rounded-md bg-magnetic-100 p-2 md:pt-0">
+        <div className="rounded-md bg-magnetic-100 p-2 md:pt-0">
           <div className="md:hidden">
             {customers?.map((customer) => (
               <div
