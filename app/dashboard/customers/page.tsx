@@ -1,20 +1,12 @@
-import { Metadata } from 'next';
-// import Pagination from '@/app/ui/invoices/pagination';
+import Pagination from '@/app/ui/invoices/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/customers/table';
 import { CreateContact } from '@/app/ui/customers/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
-import { fetchCustomers } from '@/app/lib/data';
-
-export const metadata: Metadata = {
-  title: 'Customers',
-};
-
+ 
 export default async function Page() {
-  const customers = await fetchCustomers();
-
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
@@ -24,9 +16,12 @@ export default async function Page() {
         <Search placeholder="Search customers..." />
         <CreateContact />
       </div>
-      <Suspense fallback={<InvoicesTableSkeleton />}>
-        <Table customers={customers} />
-      </Suspense>
+      {/*  <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
+        <Table query={query} currentPage={currentPage} />
+      </Suspense> */}
+      <div className="mt-5 flex w-full justify-center">
+        {/* <Pagination totalPages={totalPages} /> */}
+      </div>
     </div>
   );
 }
