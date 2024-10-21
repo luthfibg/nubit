@@ -7,26 +7,13 @@ import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
 import { fetchCustomers } from '@/app/lib/data';
- 
+
 export const metadata: Metadata = {
   title: 'Customers',
 };
 
-export default async function Page(
-//   {
-//   searchParams,
-// }: {
-//   searchParams?: {
-//     query?: string;
-//     page?: string;
-//   };
-// }
-) {
-  // const query = searchParams?.query || '';
-  // const currentPage = Number(searchParams?.page) || 1;
+export default async function Page() {
   const customers = await fetchCustomers();
-
-  // const totalPages = await fetchCustomersPages(query);
 
   return (
     <div className="w-full">
@@ -37,12 +24,9 @@ export default async function Page(
         <Search placeholder="Search customers..." />
         <CreateContact />
       </div>
-       <Suspense fallback={<InvoicesTableSkeleton />}>
+      <Suspense fallback={<InvoicesTableSkeleton />}>
         <Table customers={customers} />
       </Suspense>
-      {/* <div className="mt-5 flex w-full justify-center">
-        <Pagination totalPages={totalPages} />
-      </div> */}
     </div>
   );
 }
