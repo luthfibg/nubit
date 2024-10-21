@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres';
 import {
   CustomerField,
-  CustomersTableType,
+  CustomersTable,
   InvoiceForm,
   InvoicesTable,
   LatestInvoiceRaw,
@@ -191,7 +191,7 @@ export async function fetchFilteredCustomers(query: string, currentPage: number)
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
-    const data = await sql<CustomersTableType>`
+    const customers = await sql<CustomersTable>`
 		SELECT
 		  customers.id,
 		  customers.name,
@@ -201,19 +201,15 @@ export async function fetchFilteredCustomers(query: string, currentPage: number)
 		  customers.image_url,
 		FROM customers
 		WHERE
-		  customers.name ILIKE ${`%${query}%`} OR
+		  (customers.name ILIKE ${`%${query}%`} OR
       customers.institution ILIKE ${`%${query}%`} OR
       customers.email ILIKE ${`%${query}%`} OR
-      customers.phone ILIKE ${`%${query}%`}
+      customers.phone ILIKE ${`%${query}%`})
 		ORDER BY customers.name ASC
     LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
 	  `;
 
-    const customers = data.rows.map((customer) => ({
-      ...customer,
-    }));
-
-    return customers;
+    return customers.rows;
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch customer table.');
