@@ -204,7 +204,7 @@ export async function fetchFilteredCustomers(query: string, currentPage: number)
 		  customers.name ILIKE ${`%${query}%`} OR
       customers.institution ILIKE ${`%${query}%`} OR
       customers.email ILIKE ${`%${query}%`} OR
-      customers.phone ILIKE ${`%${query}%`} OR
+      customers.phone ILIKE ${`%${query}%`}
 		ORDER BY customers.name ASC
     LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
 	  `;
