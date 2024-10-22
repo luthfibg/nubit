@@ -13,7 +13,7 @@ import { useActionState } from 'react';
 import { useState } from 'react'; // Import useState for managing phone input state
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css'; // Import styles for react-phone-input-2
-import 'flag-icon-css/css/flag-icon.min.css'; // Import flag icon styles
+import "flag-icons/css/flag-icons.min.css"; // Import flag icon styles
 
 export default function Form() {
   const initialState: StateContact = { message: null, errors: {} };
