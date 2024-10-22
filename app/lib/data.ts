@@ -198,7 +198,7 @@ export async function fetchFilteredCustomers(query: string, currentPage: number)
       customers.institution,
 		  customers.email,
       customers.phone,
-		  customers.image_url,
+		  customers.image_url
 		FROM customers
 		WHERE
 		  (customers.name ILIKE ${`%${query}%`} OR
