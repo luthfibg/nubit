@@ -116,7 +116,7 @@ export default function Form() {
               value={phone}
               onChange={(phone) => setPhone(phone)}
               onlyCountries={['id']}
-              masks={{ id: ' (..) ... .... ....' }}
+              masks={{ id: ' ... .... ....' }}
               inputProps={{
                 name: 'phone',
                 required: true,
