@@ -115,6 +115,8 @@ export default function Form() {
               country={'id'} // You can change the default country code here
               value={phone}
               onChange={(phone) => setPhone(phone)}
+              onlyCountries={['id']}
+              masks={{ id: ' (..) ... .... ....' }}
               inputProps={{
                 name: 'phone',
                 required: true,
