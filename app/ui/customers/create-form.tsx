@@ -112,7 +112,7 @@ export default function Form() {
           </label>
           <div className="relative mt-2 rounded-md">
             <PhoneInput
-              country={'us'} // You can change the default country code here
+              country={'id'} // You can change the default country code here
               value={phone}
               onChange={(phone) => setPhone(phone)}
               inputProps={{
@@ -120,10 +120,14 @@ export default function Form() {
                 required: true,
                 autoFocus: true,
               }}
+              aria-describedby="phone-error"
+              inputStyle={{ 
+                width: '100%',
+              }}
               containerClass="block w-full"
               inputClass="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
             />
-            <DevicePhoneMobileIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            {/* <DevicePhoneMobileIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" /> */}
           </div>
           <div id="phone-error" aria-live="polite" aria-atomic="true">
             {state.errors?.phone &&
