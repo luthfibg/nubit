@@ -125,3 +125,65 @@ export async function authenticate(
     throw error;
   }
 }
+
+const FormSchemaCustomer = z.object({
+  id: z.string(),
+  name: z.string({
+    required_error: 'Name is required.',
+    invalid_type_error: 'Name must be a string.',
+  }),
+  institution: z.string({
+    required_error: 'Institution is required.',
+  }),
+  email: z.string({
+    required_error: 'Email is required.',
+  }).email(),
+  phone: z.string({
+    required_error: 'Phone is required.',
+  }).min(10),
+  image_url: z.string(),
+});
+
+const CreateContact = FormSchemaCustomer.omit({'id': true, image_url: true});
+export type StateContact = {
+errors?: {
+  name?: string[];
+  institution?: string[];
+  email?: string[];
+  phone?: string[];
+};
+message?: string | null;
+}
+
+export async function createContact(prevState: StateContact, formData: FormData) {
+  const validatedFields = CreateContact.safeParse({
+      name: formData.get('name'),
+      institution: formData.get('institution'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+  });
+
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Create Contact.',
+    };
+  }
+  // Prepare data for insertion into the database
+  const { name, institution, email, phone } = validatedFields.data;
+
+  try {
+    await sql `
+      INSERT INTO customers (name, insitution, email, phone)
+      VALUES (${name}, ${institution}, ${email}, ${phone})
+    `;
+  } catch (error) {
+    return {
+      message: `Database Error: Failed to Create Contact. ${error}`,
+    }
+  }
+
+  revalidatePath('/dashboard/customers');
+  redirect('/dashboard/customers');
+}
