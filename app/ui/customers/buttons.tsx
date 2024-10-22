@@ -1,11 +1,11 @@
-import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { deleteInvoice } from '@/app/lib/actions';
+// import { deleteCustomer } from '@/app/lib/actions';
 
 export function CreateContact() {
   return (
     <Link
-      href="/dashboard/contact/create"
+      href="/dashboard/customers/new"
       className="flex h-10 items-center rounded-lg bg-magnetic-500 px-4 text-sm font-medium text-white transition-colors hover:bg-magnetic-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
     >
       <span className="hidden md:block">Create Contact</span>{' '}
@@ -14,26 +14,26 @@ export function CreateContact() {
   );
 }
 
-export function UpdateInvoice({ id }: { id: string }) {
-  return (
-    <Link
-      href={`/dashboard/invoices/${id}/edit`}
-      className="rounded-md border p-2 hover:bg-gray-100"
-    >
-      <PencilIcon className="w-5" />
-    </Link>
-  );
-}
+// export function UpdateCustomer({ id }: { id: string }) {
+//   return (
+//     <Link
+//       href={`/dashboard/customer/${id}/edit`}
+//       className="rounded-md border p-2 hover:bg-gray-100"
+//     >
+//       <PencilIcon className="w-5" />
+//     </Link>
+//   );
+// }
 
-export function DeleteInvoice({ id }: { id: string }) {
-  const deleteInvoiceWIthId = deleteInvoice.bind(null, id);
+// export function DeleteCustomer({ id }: { id: string }) {
+//   const deleteCustomerWIthId = deleteCustomer.bind(null, id);
 
-  return (
-    <form action={deleteInvoiceWIthId}>
-      <button className="rounded-md border p-2 hover:bg-gray-100">
-        <span className="sr-only">Delete</span>
-        <TrashIcon className="w-5" />
-      </button>
-    </form>
-  );
-}
+//   return (
+//     <form action={deleteCustomerWIthId}>
+//       <button className="rounded-md border p-2 hover:bg-gray-100">
+//         <span className="sr-only">Delete</span>
+//         <TrashIcon className="w-5" />
+//       </button>
+//     </form>
+//   );
+// }
