@@ -5,7 +5,7 @@ import {
   UserCircleIcon,
   BuildingOfficeIcon,
   EnvelopeIcon,
-  DevicePhoneMobileIcon,
+  // DevicePhoneMobileIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { createContact, StateContact } from '@/app/lib/actions';
