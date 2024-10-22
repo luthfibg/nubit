@@ -10,10 +10,15 @@ import {
 import { Button } from '@/app/ui/button';
 import { createContact, StateContact } from '@/app/lib/actions';
 import { useActionState } from 'react';
+import { useState } from 'react'; // Import useState for managing phone input state
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css'; // Import styles for react-phone-input-2
+import 'flag-icon-css/css/flag-icon.min.css'; // Import flag icon styles
 
 export default function Form() {
   const initialState: StateContact = { message: null, errors: {} };
   const [state, formAction] = useActionState(createContact, initialState);
+  const [phone, setPhone] = useState(''); // State to manage phone number
 
   return (
     <form action={formAction}>
@@ -25,12 +30,12 @@ export default function Form() {
           </label>
           <div className="relative">
             <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Type customer name"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                aria-describedby='name-error'
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Type customer name"
+              className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              aria-describedby="name-error"
             />
             <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
@@ -57,7 +62,7 @@ export default function Form() {
                 type="text"
                 placeholder="Type institution"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                aria-describedby='institution-error'
+                aria-describedby="institution-error"
               />
               <BuildingOfficeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
@@ -85,7 +90,7 @@ export default function Form() {
                 type="email"
                 placeholder="Type email"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                aria-describedby='email-error'
+                aria-describedby="email-error"
               />
               <EnvelopeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
@@ -100,24 +105,25 @@ export default function Form() {
           </div>
         </div>
 
-
         {/* Customer Phone */}
         <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
+          <label htmlFor="phone" className="mb-2 block text-sm font-medium">
             Type customer phone number
           </label>
           <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="Enter phone number"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                aria-describedby='phone-error'
-              />
-              <DevicePhoneMobileIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-            </div>
+            <PhoneInput
+              country={'us'} // You can change the default country code here
+              value={phone}
+              onChange={(phone) => setPhone(phone)}
+              inputProps={{
+                name: 'phone',
+                required: true,
+                autoFocus: true,
+              }}
+              containerClass="block w-full"
+              inputClass="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+            />
+            <DevicePhoneMobileIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
           <div id="phone-error" aria-live="polite" aria-atomic="true">
             {state.errors?.phone &&
@@ -130,13 +136,13 @@ export default function Form() {
         </div>
 
         <div className="mt-6 flex justify-end gap-4">
-            <Link
+          <Link
             href="/dashboard/invoices"
             className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
-            >
+          >
             Cancel
-            </Link>
-            <Button type="submit">Add Customer</Button>
+          </Link>
+          <Button type="submit">Add Customer</Button>
         </div>
       </div>
     </form>
