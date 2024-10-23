@@ -25,15 +25,15 @@ export default function Form() {
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
-          <label htmlFor="customer" className="mb-2 block text-sm font-medium">
-            Type customer name
+          <label htmlFor="name" className="mb-2 block text-sm font-medium">
+            Customer name
           </label>
           <div className="relative">
             <input
               id="name"
               name="name"
               type="text"
-              placeholder="Type customer name"
+              placeholder="ex: Johan Maulana"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="name-error"
             />
@@ -51,8 +51,8 @@ export default function Form() {
 
         {/* Customer Institution */}
         <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Type customer institution
+          <label htmlFor="institution" className="mb-2 block text-sm font-medium">
+            Customer institution
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
@@ -60,7 +60,7 @@ export default function Form() {
                 id="institution"
                 name="institution"
                 type="text"
-                placeholder="Type institution"
+                placeholder="ex: Bank of Indonesia"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="institution-error"
               />
@@ -79,8 +79,8 @@ export default function Form() {
 
         {/* Customer Email */}
         <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Type customer email
+          <label htmlFor="email" className="mb-2 block text-sm font-medium">
+           Customer email
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
@@ -88,7 +88,7 @@ export default function Form() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="Type email"
+                placeholder="ex: 7hC2h@example.com"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="email-error"
               />
@@ -108,7 +108,7 @@ export default function Form() {
         {/* Customer Phone */}
         <div className="mb-4">
           <label htmlFor="phone" className="mb-2 block text-sm font-medium">
-            Type customer phone number
+            Active phone number
           </label>
           <div className="relative mt-2 rounded-md">
             <PhoneInput
@@ -116,10 +116,12 @@ export default function Form() {
               value={phone}
               onChange={(phone) => setPhone(phone)}
               masks={{ id: ' ... .... ....' }}
+              placeholder='ex: 821xxxxxxxx'
               inputProps={{
+                id: 'phone',
                 name: 'phone',
                 required: true,
-                autoFocus: true,
+                autoFocus: false,
               }}
               aria-describedby="phone-error"
               inputStyle={{ 
